@@ -1,0 +1,41 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db-register
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  matriculate:
+    build:
+      context: ./matriculate
+      dockerfile: Dockerfile
+    ports:
+      - 443:443
+
+  student:
+    build:
+      context: ./student
+      dockerfile: Dockerfile
+    ports:
+      - 444:444
+
+  subject:
+    build:
+      context: ./subject
+      dockerfile: Dockerfile
+    ports:
+      - 445:445
+
+  user:
+    build:
+      context: ./user
+      dockerfile: Dockerfile
+    ports:
+      - 446:446
